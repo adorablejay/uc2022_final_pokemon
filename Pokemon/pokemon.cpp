@@ -250,7 +250,9 @@ int main()
 			//!	getch();
 			return 0;
 		}
-		else if (num == 2) { exit; }
+		else if (num == 2) { 
+			cout << "하이퍼볼 X 3\n"<<"나무열매 X 1"<<endl;
+			}
 		else if (num == 3) {
 			for (int i = 0; i < 6; ++i) {
 				cout << "\n" << i + 1 << ") " << a[i];
