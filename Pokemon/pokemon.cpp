@@ -206,8 +206,7 @@ void POK::agility(int pok)
 
 int main()
 {
-	int pok, num;
-	int ber;
+	int pok;
 	cout << "\t********* *****   * *  *******      *      *****    *" << endl;
 	cout << "\t  *   *       *   * *  *     *     * *     *        *" << endl;
 	cout << "\t  *   *   ***** *** *  *******    *   *    *        *" << endl;
@@ -220,80 +219,52 @@ int main()
 	cout << "---------------------------------------------------------------------" << endl;
 
 	while (true) {
-		cout << "1) 싸운다  2) 가방  3) 포켓몬  4) 도망간다 :";
-		cin >> num;
-
-		if (num == 1) {
 		restart:
 			//	clrscr();
 			pok_assign();
 			for (int i = 0; i < 3; ++i)
 			{
-				cout << "\n______________________________________________";
 				pok_display();
 				do {
-					cout << "\n\n포켓몬을 선택 해주세요.(1-3): ";
+					cout << "\n\n포켓몬을 선택 하세요.(1-3): ";
 					cin >> pok;
 					if (!pok)
 						return 0;
 					if (pok == 10101)
 						goto restart;
-				} while (pok > 3 || pok < 0);
+				} while (pok > 3 || pok < 0);//pok이 예외상황(음수or3초과)일 때 반복
 				play(--pok);
 			}
+
 			cout << "\n\t\t____________________________________________\n";
 			if (user_score > cpu_score)
-				cout << "\t\t**********!!!이겼습니다!!!**********";
+				cout << "\t\t**********!!!상대방보다 점수가 높습니다.\n이겼습니다!!!**********";
 			else
-				cout << "\t\t**********!!!상대방에게 졌습니다!!!**********";
+				cout << "\t\t**********!!!상대방에게 점수가 낮습니다.\n!!!**********";
 			cout << "\n\t\t____________________________________________\n";
 			//!	getch();
-			return 0;
-		}
-		else if (num == 2) { 
-			cout << "하이퍼볼 X 3\n"<<"나무열매 X 1"<<endl;
-			}
-		else if (num == 3) {
-			for (int i = 0; i < 6; ++i) {
-				cout << "\n" << i + 1 << ") " << a[i];
-			}
-			cout << endl << endl;
-		}
-
-
-		if (num == 4) {
-			cout << "도망칠 수 없습니다. 종료 하시겠습니까?" << endl;
-			cout << "1. 싸운다 2. 종료한다 : ";
-
-			cin >> ber;
-			if (ber == 1) {
-				goto restart;
-			}
-			else if (ber == 2)
-			{
-				return 0;
-			}
-		}
+			return 0;		
 	}
 }
 
 void play(int pok)
 {
-	int choice;
+	int choice, num, ber{};
 	cout << "\n나의 포켓몬 : " << user.pokemon[pok].getname();
 	cout << "\n상대 포켓몬: " << cpu.pokemon[pok].getname() << endl;
+		restart:
 	while ((user.pokemon[pok].hlt() > 0) && (cpu.pokemon[pok].hlt() > 0))
 	{
 		do {
 			cout << "_____________________________________________";
-			cout << "\n선택하세요: ";
-			cout << "\n1.) 민첩: " << user.pokemon[pok].spd()
-				<< "\t\t2.) 공격:  " << user.pokemon[pok].off()
-				<< "\n3.) 방어: " << user.pokemon[pok].def()
-				<< "\t\t4.) 강화: " << user.pokemon[pok].pow();
+			cout << "\n선택: ";
+			cout << "\n1.) 민첩: " << user.pokemon[pok].spd()<<"%"
+				<< "\t\t2.) 공격:  " << user.pokemon[pok].off()<<"%"
+				<< "\n3.) 방어: " << user.pokemon[pok].def()<<"%"
+				<< "\t\t4.) 강화: " << user.pokemon[pok].pow()<<"%";
 			cout << "\n\n선택하세요: ";
 			cin >> choice;
-		} while (choice < 0 || choice>4);
+		} while (choice < 0 || choice>4);//예외사항일때 반복(음수or4초과)
 
 		switch (choice)
 		{
@@ -302,14 +273,46 @@ void play(int pok)
 		case 2:user.pokemon[pok].attack(pok);	break;
 		case 3:user.pokemon[pok].defend(pok);	break;
 		case 4:user.pokemon[pok].special(pok);	break;
-		}
+		} 
+		//(1~4까지 선택 할 경우)
 
 		cout << "\n\n나의 포켓몬: " << user.pokemon[pok].getname()
 			<< "\t체력: " << user.pokemon[pok].hlt();
 		cout << "\n상대 포켓몬 : " << cpu.pokemon[pok].getname()
 			<< "\t체력: " << cpu.pokemon[pok].hlt() << endl;
-	}
 
+		if ((user.pokemon[pok].hlt() > 0) && (cpu.pokemon[pok].hlt() > 0))
+		{
+
+
+			cout << "\n____________________________________________\n";
+			cout << "1) 싸운다  2) 가방  3) 포켓몬  4) 도망간다 :";
+			cin >> num;
+			if (num == 2) {
+				cout << "하이퍼볼 X 3\n" << "나무열매 X 1" << endl;
+			}
+			else if (num == 3) {
+				for (int i = 0; i < 3; ++i) {
+					cout << "\n" << i + 1 << ") " << a[i];
+				}
+				cout << endl << endl;
+			}
+			else if (num == 4) {
+				cout << "도망칠 수 없습니다. 종료 하시겠습니까?" << endl;
+				cout << "1. 싸운다 2. 종료한다 : ";
+				cin >> ber;
+				if (ber == 1) {
+					goto restart;
+				}
+				else if (ber == 2)
+				{
+					exit(0);
+				}
+			}
+		}
+	}
+		
+	
 	if (user.pokemon[pok].hlt() > cpu.pokemon[pok].hlt())
 	{
 		user_score++;
@@ -325,9 +328,6 @@ void play(int pok)
 		cout << "**********************\n\n";
 	}
 }
-
-
-
 
 void pok_assign()
 {
@@ -370,7 +370,7 @@ void pok_assign()
 		}
 	}
 }
-
+//포켓몬 정함
 void pok_display()
 {
 	cout << "\n\n나의 포켓몬: \n";
@@ -389,8 +389,7 @@ void pok_display()
 void pok_display(int i)
 {
 
-	cout << "\n_____________________________________________";
-	cout << "\n포켓몬 능력:\n";
+	cout << "\n\n포켓몬 능력:";
 
 	cout << "\nUser: " << user.pokemon[i].getname();
 	cout << "\n\t강화\t체력\t민첩\t방어\t공격" << endl;
@@ -408,3 +407,4 @@ void pok_display(int i)
 		<< "\t" << cpu.pokemon[i].def()
 		<< "\t" << cpu.pokemon[i].off();
 }
+//강화를 선택할 경우
