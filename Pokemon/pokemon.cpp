@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
+#include <list>
 
 using namespace std;
 
@@ -249,12 +250,15 @@ int main()
 
 void play(int pok)
 {
-	int choice, num, ber{};
+	int choice, num, ber;
+	int bag, fruit;
+	fruit = 1;
+
 	cout << "\n나의 포켓몬 : " << user.pokemon[pok].getname();
 	cout << "\n상대 포켓몬: " << cpu.pokemon[pok].getname() << endl;
-		restart:
 	while ((user.pokemon[pok].hlt() > 0) && (cpu.pokemon[pok].hlt() > 0))
 	{
+		
 		do {
 			cout << "_____________________________________________";
 			cout << "\n선택: ";
@@ -283,16 +287,29 @@ void play(int pok)
 
 		if ((user.pokemon[pok].hlt() > 0) && (cpu.pokemon[pok].hlt() > 0))
 		{
-
-
 			cout << "\n____________________________________________\n";
 			cout << "1) 싸운다  2) 가방  3) 포켓몬  4) 도망간다 :";
 			cin >> num;
 			if (num == 2) {
-				cout << "하이퍼볼 X 3\n" << "나무열매 X 1" << endl;
+				cout << "1.하이퍼볼 X 3\t  " << "2.나무열매 X "<< fruit << endl;
+				cout << "선택해주세요:";
+				cin >> bag;
+				if (bag == 1) {
+					cout << "배틀 중에 사용할 수 없습니다!\n";
+				}
+				if (bag == 2) {
+					if (fruit>0)
+					{
+						cout << user.pokemon[pok].getname() << "의 체력이 10증가 했습니다.\n";
+						cout << "현재 체력" << user.pokemon[pok].hlt() + 10 << endl;
+						user.pokemon[pok].hlt() + 10;
+					}
+					else if (fruit == 0) { cout << "열매가 없습니다!\n"; }
+					fruit--;
+				}
 			}
 			else if (num == 3) {
-				for (int i = 0; i < 3; ++i) {
+				for (int i = 0; i < 12; ++i) {
 					cout << "\n" << i + 1 << ") " << a[i];
 				}
 				cout << endl << endl;
@@ -302,13 +319,14 @@ void play(int pok)
 				cout << "1. 싸운다 2. 종료한다 : ";
 				cin >> ber;
 				if (ber == 1) {
-					goto restart;
+					continue;
 				}
 				else if (ber == 2)
 				{
 					exit(0);
 				}
 			}
+			user.pokemon[pok].hlt() + 10;
 		}
 	}
 		
