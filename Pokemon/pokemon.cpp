@@ -18,13 +18,13 @@ class POK
 {
 private:
 	int power;
-	float health;
 	int speed;
 	int defence;
 	int offence;
 	char name[10];
 
 public:
+	float health;
 	int pow() { return power; }
 	float hlt() { return health; }
 	int spd() { return speed; }
@@ -302,7 +302,7 @@ void play(int pok)
 					{
 						cout << user.pokemon[pok].getname() << "의 체력이 10증가 했습니다.\n";
 						cout << "현재 체력" << user.pokemon[pok].hlt() + 10 << endl;
-						user.pokemon[pok].hlt() + 10;
+						user.pokemon[pok].health += 10;
 					}
 					else if (fruit == 0) { cout << "열매가 없습니다!\n"; }
 					fruit--;
@@ -326,7 +326,6 @@ void play(int pok)
 					exit(0);
 				}
 			}
-			user.pokemon[pok].hlt() + 10;
 		}
 	}
 		

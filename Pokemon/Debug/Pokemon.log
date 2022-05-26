@@ -1,4 +1,2 @@
 ﻿  pokemon.cpp
-C:\Users\rlans\OneDrive\Desktop\pokemon\Pokemon\Pokemon\pokemon.cpp(305,31): warning C4552: '+': 식의 결과가 사용되지 않습니다.
-C:\Users\rlans\OneDrive\Desktop\pokemon\Pokemon\Pokemon\pokemon.cpp(329,28): warning C4552: '+': 식의 결과가 사용되지 않습니다.
   Pokemon.vcxproj -> C:\Users\rlans\OneDrive\Desktop\pokemon\Pokemon\Debug\Pokemon.exe
