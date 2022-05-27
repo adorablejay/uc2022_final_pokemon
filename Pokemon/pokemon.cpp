@@ -309,10 +309,22 @@ void play(int pok)
 				}
 			}
 			else if (num == 3) {
-				for (int i = 0; i < 12; ++i) {
-					cout << "\n" << i + 1 << ") " << a[i];
+				int choice;
+				cout << "현재 포켓몬은 " << user.pokemon[pok].getname() << "입니다.";
+				for (int i = 0; i < 3; i++) {
+					cout << "\n" << i + 1 << ")" << user.pokemon[i].getname() << endl;
 				}
-				cout << endl << endl;
+					cout << "3마리 중 어떤 포켓몬으로 교체하시겠습니까? : ";
+					cin >> choice;
+					user.pokemon[choice - 1];
+					if (pok == choice - 1) {
+						cout << "같은 포켓몬으로 교체할 수 없습니다." << endl;
+					}
+					else {
+						cout << user.pokemon[choice - 1].getname() << "\n";
+						user.pokemon[choice - 1] = user.pokemon[pok];
+					}
+				
 			}
 			else if (num == 4) {
 				cout << "도망칠 수 없습니다. 종료 하시겠습니까?" << endl;
