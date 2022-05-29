@@ -8,7 +8,7 @@
 using namespace std;
 
 int user_score = 0, cpu_score = 0;
-
+int p;
 void pok_assign(void);
 void pok_display(void);
 void pok_display(int);
@@ -24,6 +24,7 @@ private:
 	char name[10];
 
 public:
+	
 	float health;
 	int pow() { return power; }
 	float hlt() { return health; }
@@ -228,13 +229,13 @@ int main()
 				pok_display();
 				do {
 					cout << "\n\n포켓몬을 선택 하세요.(1-3): ";
-					cin >> pok;
-					if (!pok)
+					cin >> p;
+					if (!p)
 						return 0;
-					if (pok == 10101)
+					if (p == 10101)
 						goto restart;
-				} while (pok > 3 || pok < 0);//pok이 예외상황(음수or3초과)일 때 반복
-				play(--pok);
+				} while (p > 3 || p < 0);//pok이 예외상황(음수or3초과)일 때 반복
+				play(--p);
 			}
 
 			cout << "\n\t\t________________________________________________________________\n";
@@ -254,18 +255,18 @@ void play(int pok)
 	int bag, fruit;
 	fruit = 1;
 
-	cout << "\n나의 포켓몬 : " << user.pokemon[pok].getname();
-	cout << "\n상대 포켓몬: " << cpu.pokemon[pok].getname() << endl;
-	while ((user.pokemon[pok].hlt() > 0) && (cpu.pokemon[pok].hlt() > 0))
+	cout << "\n나의 포켓몬 : " << user.pokemon[p].getname();
+	cout << "\n상대 포켓몬: " << cpu.pokemon[p].getname() << endl;
+	while ((user.pokemon[p].hlt() > 0) && (cpu.pokemon[p].hlt() > 0))
 	{
 		
 		do {
 			cout << "_____________________________________________";
 			cout << "\n선택: ";
-			cout << "\n1.) 민첩: " << user.pokemon[pok].spd()<<"%"
-				<< "\t\t2.) 공격:  " << user.pokemon[pok].off()<<"%"
-				<< "\n3.) 방어: " << user.pokemon[pok].def()<<"%"
-				<< "\t\t4.) 강화: " << user.pokemon[pok].pow()<<"%";
+			cout << "\n1.) 민첩: " << user.pokemon[p].spd()<<"%"
+				<< "\t\t2.) 공격:  " << user.pokemon[p].off()<<"%"
+				<< "\n3.) 방어: " << user.pokemon[p].def()<<"%"
+				<< "\t\t4.) 강화: " << user.pokemon[p].pow()<<"%";
 			cout << "\n\n선택하세요: ";
 			cin >> choice;
 		} while (choice < 0 || choice>4);//예외사항일때 반복(음수or4초과)
@@ -273,19 +274,19 @@ void play(int pok)
 		switch (choice)
 		{
 		case 0:exit(0);
-		case 1:user.pokemon[pok].agility(pok);	break;
-		case 2:user.pokemon[pok].attack(pok);	break;
-		case 3:user.pokemon[pok].defend(pok);	break;
-		case 4:user.pokemon[pok].special(pok);	break;
+		case 1:user.pokemon[p].agility(p);	break;
+		case 2:user.pokemon[p].attack(p);	break;
+		case 3:user.pokemon[p].defend(p);	break;
+		case 4:user.pokemon[p].special(p);	break;
 		} 
 		//(1~4까지 선택 할 경우)
 
-		cout << "\n\n나의 포켓몬: " << user.pokemon[pok].getname()
-			<< "\t체력: " << user.pokemon[pok].hlt();
-		cout << "\n상대 포켓몬 : " << cpu.pokemon[pok].getname()
-			<< "\t체력: " << cpu.pokemon[pok].hlt() << endl;
+		cout << "\n\n나의 포켓몬: " << user.pokemon[p].getname()
+			<< "\t체력: " << user.pokemon[p].hlt();
+		cout << "\n상대 포켓몬 : " << cpu.pokemon[p].getname()
+			<< "\t체력: " << cpu.pokemon[p].hlt() << endl;
 
-		if ((user.pokemon[pok].hlt() > 0) && (cpu.pokemon[pok].hlt() > 0))
+		if ((user.pokemon[p].hlt() > 0) && (cpu.pokemon[p].hlt() > 0))
 		{
 			cout << "\n____________________________________________\n";
 			cout << "1) 싸운다  2) 가방  3) 포켓몬  4) 도망간다 :";
@@ -300,9 +301,9 @@ void play(int pok)
 				if (bag == 2) {
 					if (fruit>0)
 					{
-						cout << user.pokemon[pok].getname() << "의 체력이 10증가 했습니다.\n";
-						cout << "현재 체력" << user.pokemon[pok].hlt() + 10 << endl;
-						user.pokemon[pok].health += 10;
+						cout << user.pokemon[p].getname() << "의 체력이 10증가 했습니다.\n";
+						cout << "현재 체력" << user.pokemon[p].hlt() + 10 << endl;
+						user.pokemon[p].health += 10;
 					}
 					else if (fruit == 0) { cout << "열매가 없습니다!\n"; }
 					fruit--;
@@ -310,19 +311,18 @@ void play(int pok)
 			}
 			else if (num == 3) {
 				int choice;
-				cout << "현재 포켓몬은 " << user.pokemon[pok].getname() << "입니다.";
-				for (int i = 0; i < 3; i++) {
-					cout << "\n" << i + 1 << ")" << user.pokemon[i].getname() << endl;
-				}
-					cout << "3마리 중 어떤 포켓몬으로 교체하시겠습니까? : ";
+				cout << "현재 포켓몬은 " << user.pokemon[p].getname() << "입니다.";
+				
+				pok_display();
+					cout << "\n\n3마리 중 어떤 포켓몬으로 교체하시겠습니까? : ";
 					cin >> choice;
-					user.pokemon[choice - 1];
-					if (pok == choice - 1) {
+
+					if (p == choice) {
 						cout << "같은 포켓몬으로 교체할 수 없습니다." << endl;
 					}
 					else {
-						cout << user.pokemon[choice - 1].getname() << "\n";
-						user.pokemon[choice - 1] = user.pokemon[pok];
+						cout << user.pokemon[choice-1].getname() << "\n";
+						user.pokemon[p] = user.pokemon[choice-1];
 					}
 				
 			}
