@@ -4,6 +4,7 @@
 #include<string.h>
 #include<time.h>
 #include <list>
+#include<Windows.h>
 
 using namespace std;
 
@@ -310,19 +311,20 @@ void play(int pok)
 				}
 			}
 			else if (num == 3) {
-				int choice;
 				cout << "현재 포켓몬은 " << user.pokemon[p].getname() << "입니다.";
 				
 				pok_display();
+				int l = p;
 					cout << "\n\n3마리 중 어떤 포켓몬으로 교체하시겠습니까? : ";
-					cin >> choice;
+					cin >> p;
+					p -= 1;
 
-					if (p == choice) {
+					if (l == p) {
 						cout << "같은 포켓몬으로 교체할 수 없습니다." << endl;
 					}
 					else {
-						cout << user.pokemon[choice-1].getname() << "\n";
-						user.pokemon[p] = user.pokemon[choice-1];
+						cout << user.pokemon[p].getname() << "으로 교체되었습니다. \n";
+						//임시기억하기 클래스 객체 = 
 					}
 				
 			}
@@ -338,6 +340,7 @@ void play(int pok)
 					exit(0);
 				}
 			}
+			//system("cls");
 		}
 	}
 		

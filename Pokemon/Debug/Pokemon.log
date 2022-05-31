@@ -1,3 +1,3 @@
 ﻿  pokemon.cpp
-C:\Users\rlans\OneDrive\Desktop\pokemon\Pokemon\Pokemon\pokemon.cpp(211,6): warning C4101: 'pok' :참조되지 않은 지역 변수입니다.
-  Pokemon.vcxproj -> C:\Users\rlans\OneDrive\Desktop\pokemon\Pokemon\Debug\Pokemon.exe
+C:\Git\uc2022_final_pokemon\Pokemon\pokemon.cpp(212,6): warning C4101: 'pok': unreferenced local variable
+  Pokemon.vcxproj -> C:\Git\uc2022_final_pokemon\Debug\Pokemon.exe
